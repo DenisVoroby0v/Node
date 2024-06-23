@@ -17,3 +17,15 @@
     "sqlite3": "^5.1.6"
   }
 }
+{
+  "name": "node-project",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "jest",
+    "sonar": "sonar-scanner"
+  },
+  "devDependencies": {
+    "jest": "^26.6.3",
+    "sonar-scanner": "^3.1.0"
+  }
+}
