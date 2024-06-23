@@ -35,8 +35,20 @@ jobs:
       - name: Run tests and generate coverage
         run: npm test
 
+      - name: Print test results
+        run: cat coverage/lcov.info
+
       - name: Run SonarQube Scanner
         env:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: npm run sonar
+        run: |
+          sonar-scanner \
+          -Dsonar.projectKey=node_project_key \
+          -Dsonar.projectName=Node \
+          -Dsonar.projectVersion=1.0 \
+          -Dsonar.sources=src \
+          -Dsonar.tests=__tests__ \
+          -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
+          -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
