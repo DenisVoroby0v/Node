@@ -38,11 +38,12 @@ jobs:
         run: printenv
       - name: Build and analyze
         env:
-          # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Uncomment if you need PR information
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         run: |
           mvn -B verify sonar:sonar -Dmaven.test.failure.ignore=true -Dsonar.verbose=true \
             -Dsonar.projectKey=YOUR_PROJECT_KEY \
             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }} | tee mvn_output.log
+      - name: Print mvn log
+        run: cat mvn_output.log
