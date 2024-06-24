@@ -1,11 +1,11 @@
 {
-  "name": "node-project",
+  "name": "project",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "jest --passWithNoTests",
+    "test": "jest",
     "sonar": "sonar-scanner"
   },
   "keywords": [],
@@ -23,4 +23,3 @@
     "sonar-scanner": "^3.1.0"
   }
 }
-
