@@ -54,6 +54,12 @@ jobs:
             echo "No coverage report found"
           fi
 
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
       - name: Run SonarQube Scanner
         env:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
