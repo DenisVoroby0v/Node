@@ -60,6 +60,9 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Verify Java installation
+        run: java -version
+
       - name: Run SonarQube Scanner
         env:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
