@@ -41,7 +41,12 @@ jobs:
         run: npm test || echo "No tests found, skipping test step"
 
       - name: Print test results
-        run: cat coverage/lcov.info || echo "No coverage report found"
+        run: |
+          if [ -f coverage/lcov.info ]; then
+            cat coverage/lcov.info
+          else
+            echo "No coverage report found"
+          fi
 
       - name: Run SonarQube Scanner
         env:
@@ -59,4 +64,9 @@ jobs:
           -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
       - name: Print SonarQube Scanner log
-        run: cat .scannerwork/scanner-report.log || echo "No scanner log found"
+        run: |
+          if [ -f .scannerwork/scanner-report.log ]; then
+            cat .scannerwork/scanner-report.log
+          else
+            echo "No scanner log found"
+          fi
