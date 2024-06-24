@@ -63,27 +63,4 @@ jobs:
       - name: Verify Java installation
         run: java -version
 
-      - name: Run SonarQube Scanner
-        env:
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          echo "Running SonarQube Scanner..."
-          npx sonar-scanner -X \
-          -Dsonar.projectKey=node_project_key \
-          -Dsonar.projectName=Node \
-          -Dsonar.projectVersion=1.0 \
-          -Dsonar.sources=src \
-          -Dsonar.tests=__tests__ \
-          -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
-          -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-
-      - name: Print SonarQube Scanner log
-        run: |
-          if [ -f .scannerwork/scanner-report.log ]; then
-            echo "Printing SonarQube Scanner log..."
-            cat .scannerwork/scanner-report.log
-          else
-            echo "No scanner log found"
-          fi
+      - name: Check environment variables
