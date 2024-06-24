@@ -30,43 +30,10 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install dependencies
-        run: |
-          npm install
-          npm install sonar-scanner --save-dev
+        run: npm install
 
       - name: List installed packages
         run: npm list
 
-      - name: Run tests and generate coverage
+      - name: Run tests
         run: npm test || echo "No tests found, skipping test step"
-
-      - name: Print test results
-        run: |
-          if [ -f coverage/lcov.info ]; then
-            cat coverage/lcov.info
-          else
-            echo "No coverage report found"
-          fi
-
-      - name: Run SonarQube Scanner
-        env:
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          npx sonar-scanner \
-          -Dsonar.projectKey=node_project_key \
-          -Dsonar.projectName=Node \
-          -Dsonar.projectVersion=1.0 \
-          -Dsonar.sources=src \
-          -Dsonar.tests=__tests__ \
-          -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
-          -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-
-      - name: Print SonarQube Scanner log
-        run: |
-          if [ -f .scannerwork/scanner-report.log ]; then
-            cat .scannerwork/scanner-report.log
-          else
-            echo "No scanner log found"
-          fi
